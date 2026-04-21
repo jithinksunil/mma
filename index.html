@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMA Training Plan — Final</title>
+<title>MMA Training Plan — Final v4</title>
 <style>
 :root{
   --color-bg-primary:#ffffff;
@@ -38,7 +38,13 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 .ts{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.25rem}
 .alert{background:#FAEEDA;border:0.5px solid #EF9F27;border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:#633806;margin-bottom:10px;line-height:1.6}
 .alert strong{font-weight:500}
-.alert-red{background:#FCEBEB;border:0.5px solid #E24B4A;color:#791F1F;margin-bottom:1.25rem}
+.alert-red{background:#FCEBEB;border:0.5px solid #E24B4A;color:#791F1F;margin-bottom:10px}
+.alert-green{background:#E1F5EE;border:0.5px solid #5DCAA5;color:#085041;margin-bottom:1.25rem}
+.eq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;margin-top:1rem}
+.eq{background:var(--color-bg-secondary);border-radius:var(--border-radius-md);padding:10px 12px;border:0.5px solid var(--color-border-tertiary)}
+.eq-ico{font-size:16px;margin-bottom:4px}
+.eq-name{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}
+.eq-sub{font-size:10px;color:var(--color-text-secondary)}
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem;margin-top:1.25rem}
 .stat{background:var(--color-bg-secondary);border-radius:var(--border-radius-md);padding:10px 12px;border:0.5px solid var(--color-border-tertiary)}
 .stat-val{font-size:17px;font-weight:500;color:var(--color-text-primary)}
@@ -52,18 +58,21 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 .tab{padding:7px 14px;border-radius:999px;font-size:13px;font-weight:500;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-bg-secondary);color:var(--color-text-secondary);transition:all 0.15s}
 .tab.active{background:#D85A30;color:#fff;border-color:#D85A30}
 .panel{display:none}.panel.active{display:block}
-.phase-bar{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#FAECE7;border:0.5px solid #F0997B;border-radius:var(--border-radius-lg);margin-bottom:1.25rem;justify-content:space-between}
+.phase-bar{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#FAECE7;border:0.5px solid #F0997B;border-radius:var(--border-radius-lg);margin-bottom:1rem;justify-content:space-between}
 .phase-badge{background:#D85A30;color:#fff;font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;white-space:nowrap;margin-top:1px}
 .phase-aim{font-size:13px;color:#993C1D;margin-top:2px}
 .phase-name{font-size:14px;font-weight:500;color:#993C1D}
+.split-info{background:#E6F1FB;border:0.5px solid #85B7EB;border-radius:var(--border-radius-md);padding:8px 12px;font-size:11px;color:#0C447C;margin-bottom:1rem;line-height:1.5}
+.split-info strong{font-weight:500}
 .daygrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:1.25rem}
-.dc{background:var(--color-bg-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:8px 5px;cursor:pointer;transition:border-color 0.15s;text-align:center}
+.dc{background:var(--color-bg-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:8px 5px;cursor:pointer;transition:border-color 0.15s;text-align:center;position:relative}
 .dc:hover{border-color:var(--color-border-secondary)}
 .dc.active{border-color:#D85A30;background:#FAECE7}
 .dc.active .dc-name{color:#1a1a1a}
 .dc-lbl{font-size:10px;color:var(--color-text-secondary);font-weight:500;margin-bottom:3px}
 .dc-name{font-size:10px;color:var(--color-text-primary);font-weight:500;line-height:1.3;min-height:26px}
 .dc-tag{font-size:9px;font-weight:500;padding:2px 5px;border-radius:999px;margin-top:4px;display:inline-block}
+.dc-loc{position:absolute;top:4px;right:4px;font-size:9px;opacity:0.8}
 .t-strength{background:#FAEEDA;color:#633806}
 .t-conditioning{background:#E6F1FB;color:#0C447C}
 .t-striking{background:#FCEBEB;color:#791F1F}
@@ -72,7 +81,10 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 .t-rest{background:#F1EFE8;color:#444441}
 .t-circuit{background:#EEEDFE;color:#3C3489}
 .detail{background:var(--color-bg-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem}
-.det-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.det-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.det-loc{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:999px}
+.loc-home{background:#E1F5EE;color:#085041}
+.loc-gym{background:#FAEEDA;color:#633806}
 .det-sub{font-size:12px;color:var(--color-text-secondary);margin-bottom:1rem}
 .warmup-block{background:#E6F1FB;border:0.5px solid #85B7EB;border-radius:var(--border-radius-md);padding:8px 11px;font-size:11px;color:#0C447C;margin-bottom:10px;line-height:1.5}
 .warmup-block strong{font-weight:500}
@@ -86,8 +98,12 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 .tips-lbl{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:7px}
 .tip{display:flex;gap:8px;font-size:12px;color:var(--color-text-secondary);margin-bottom:5px;line-height:1.5}
 .dot{width:4px;height:4px;border-radius:50%;background:#D85A30;margin-top:6px;flex-shrink:0}
+.plan-nav{display:flex;justify-content:flex-end;margin-bottom:16px}
+.plan-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#D85A30;color:#fff;text-decoration:none;border-radius:8px;font-weight:500;font-size:14px;transition:background 0.15s ease, transform 0.15s ease}
+.plan-btn:hover{background:#b84a25;transform:translateY(-1px)}
 @media (max-width: 600px) {
   .stat-row{grid-template-columns:repeat(2,1fr)}
+  .eq-grid{grid-template-columns:repeat(3,1fr)}
   .daygrid{grid-template-columns:repeat(4,1fr)}
   .tabs{flex-direction:column}
   .tab{text-align:center}
@@ -97,33 +113,59 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 <body>
 <div class="container">
 <div class="wrap">
-<div class="tt">MMA Training Plan — Final</div>
-<div class="ts">Home · No equipment · 6 days/week · 6 months · Calf-safe progression</div>
+<div class="plan-nav">
+  <a href="/plan-2" class="plan-btn">View Plan 2 →</a>
+</div>
+<div class="tt">MMA Training Plan — Final v4</div>
+<div class="ts">Home + Gym split · Heavy bag · 6 days/week · 6 months · Calf-safe</div>
 
-<div class="alert alert-red"><strong>Calf pain check first:</strong> If pain is sharp, localised to one spot, or present at rest, see a physio before starting. This plan assumes general deconditioning tightness. If it doesn't improve within 2 weeks of daily stretching, stop and get it assessed.</div>
+<div class="alert alert-green"><strong>Shopping list before Week 1:</strong> 16oz boxing gloves (~$30–50) + 180" hand wraps (~$10) + mouthguard (~$15). Total under $75. <strong>Don't</strong> buy: bag gloves (too thin, risk wrist injury) or MMA gloves (only for sparring).</div>
 
-<div class="alert"><strong>Every session starts with 5-min warm-up:</strong> 2 min joint circles (ankles, knees, hips, shoulders, neck) → 1 min leg swings + arm swings → 2 min light shadowboxing. Non-negotiable. This prevents the exact injuries that derail returning athletes.</div>
+<div class="alert alert-red"><strong>Calf pain check first:</strong> If sharp, localised, or present at rest — see a physio before starting. Plan assumes general deconditioning tightness. No improvement in 2 weeks of daily stretching means get it assessed.</div>
+
+<div class="alert"><strong>Every session:</strong> 5-min warm-up (joint circles → swings → light shadowboxing) + neck isometrics (4 directions × 10 sec) + calf stretch (30 sec each leg). Non-negotiable.</div>
+
+<div class="eq-grid">
+<div class="eq"><div class="eq-ico">🥊</div><div class="eq-name">Heavy bag</div><div class="eq-sub">Home</div></div>
+<div class="eq"><div class="eq-ico">🧤</div><div class="eq-name">16oz gloves + wraps</div><div class="eq-sub">Buy</div></div>
+<div class="eq"><div class="eq-ico">🏋</div><div class="eq-name">Strength gym</div><div class="eq-sub">2–3× week</div></div>
+</div>
 
 <div class="stat-row">
 <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Phases</div></div>
 <div class="stat"><div class="stat-val">6/wk</div><div class="stat-lbl">Training days</div></div>
-<div class="stat"><div class="stat-val">0</div><div class="stat-lbl">Equipment</div></div>
-<div class="stat"><div class="stat-val">6 wks</div><div class="stat-lbl">Phase 1 length</div></div>
+<div class="stat"><div class="stat-val">2–3</div><div class="stat-lbl">Gym days/wk</div></div>
+<div class="stat"><div class="stat-val">24 wk</div><div class="stat-lbl">Total program</div></div>
+</div>
+
+<div class="sect">
+<div class="sect-title"><div class="sect-ico">📍</div>Home vs gym split</div>
+<div class="sect-body"><strong>At home:</strong> bag work, shadowboxing, grappling movement drills, mobility, conditioning circuits. <strong>At gym:</strong> compound lifts (squat, deadlift, bench, row, overhead press) — everything your bodyweight plan can't fully replicate. This split means you never need MMA equipment at the gym — just the strength rack and basics.</div>
+</div>
+
+<div class="sect">
+<div class="sect-title"><div class="sect-ico">🥊</div>Heavy bag protocol (leg-only bag)</div>
+<div class="sect-body">Since your bag is heavy/weighted for legs (likely a floor-anchored kick bag), it's great for kicks and knees but <strong>too rigid for heavy punches</strong> — you'll hurt your wrists. <strong>For punches:</strong> use shadowboxing for precision and light taps on the bag only (50% power) for timing. <strong>For kicks:</strong> full power is fine and that's where your bag shines. Always wrap hands + wear gloves, even for light bag work.</div>
+</div>
+
+<div class="sect">
+<div class="sect-title"><div class="sect-ico">🏋</div>Gym strength principles</div>
+<div class="sect-body">Start light — form over weight for the first 3 weeks regardless of your old numbers. <strong>Core lifts:</strong> goblet squat → back squat, Romanian deadlift → conventional deadlift, bench press, barbell row, overhead press. <strong>Rep scheme:</strong> 3×8–10 in Phase 1, 4×6–8 in Phase 2–3. <strong>Rest:</strong> 2–3 min between heavy sets. Progress by 2.5kg when you hit all reps with good form.</div>
 </div>
 
 <div class="sect">
 <div class="sect-title"><div class="sect-ico">N</div>Neck work — every training day</div>
-<div class="sect-body">MMA is brutal on necks and yours has been inactive for a year. Do these <strong>before</strong> every session as part of warm-up, or during your calf stretch breaks. 3×10 sec isometric holds in 4 directions: hand on forehead push forward, hand behind head push back, hand on each temple push side. Plus 10 slow neck circles each direction. Takes 3 minutes. Never skip.</div>
+<div class="sect-body">MMA is brutal on necks and yours has been inactive for a year. Do these <strong>before</strong> every session as part of warm-up. 3×10 sec isometric holds in 4 directions: hand on forehead push forward, hand behind head push back, hand on each temple push side. Plus 10 slow neck circles each direction. Takes 3 minutes. Never skip.</div>
 </div>
 
 <div class="sect">
 <div class="sect-title"><div class="sect-ico">🦵</div>Calf return protocol</div>
-<div class="sect-body">Jogging only begins when you pass this test: <strong>walk 45 min at brisk pace pain-free</strong>, then do 15 single-leg calf raises on the affected leg, and have <strong>zero soreness the next morning</strong>. Only then: start with 1 min jog / 2 min walk intervals. Jump rope stays banned for the first 4 weeks of running return.</div>
+<div class="sect-body">Jogging only after passing: <strong>walk 45 min pain-free → 15 single-leg calf raises on affected leg → zero next-day soreness</strong>. Then: 1 min jog / 2 min walk intervals. Jump rope banned first 4 weeks of running return. <strong>Kicks on the bag are fine earlier</strong> — they don't load the calf the way running does.</div>
 </div>
 
 <div class="sect">
 <div class="sect-title"><div class="sect-ico">🥗</div>Recovery baseline</div>
-<div class="sect-body"><strong>Protein:</strong> 1.6–2g per kg bodyweight daily (~100–140g for most). <strong>Sleep:</strong> 7–9 hrs — this is where adaptation happens. <strong>Hydration:</strong> ~35ml per kg bodyweight, more on training days. <strong>Carbs:</strong> don't cut them on training days — you need fuel for the nervous system. Deconditioned + underfed = injury.</div>
+<div class="sect-body"><strong>Protein:</strong> 1.6–2g per kg bodyweight daily (~100–140g for most). <strong>Sleep:</strong> 7–9 hrs — this is where adaptation happens. <strong>Hydration:</strong> ~35ml per kg bodyweight, more on training days. <strong>Carbs:</strong> don't cut them on training days. Gym work adds recovery demand — eat enough.</div>
 </div>
 
 <div class="tabs">
@@ -140,148 +182,159 @@ body{font-family:var(--font-sans);background:var(--color-bg-tertiary);color:var(
 
 <script>
 const D=[
-{label:"Phase 1",weeks:"Weeks 1–6",aim:"Reactivate tissue, fix movement, zero calf stress, introduce neck + grappling movement",
+{label:"Phase 1",weeks:"Weeks 1–6",aim:"Reactivate tissue, introduce gym lifting with light loads, start bag kicks, zero calf stress from running",
+split:"2 gym days (D1, D4) + 4 home days. Form-focused lifting.",
 days:[
-{l:"D1",t:"strength",title:"Lower body + core",exs:[
-{i:"🏋",n:"Bodyweight squats",d:"3×10 reps",note:"Slow 3 sec descent. Chair-assisted if needed."},
-{i:"🔥",n:"Glute bridge",d:"3×15 reps",note:"Drive through heels. Calf-safe."},
-{i:"⚡",n:"Dead bug",d:"3×8 each side",note:"Lower back flat. Core activation."},
-{i:"🦵",n:"Side-lying leg raise",d:"3×12 each side",note:"Hip abductors — stance stability."},
-{i:"⚡",n:"Side plank",d:"2×20 sec each side",note:"Better core progression than front plank alone."},
-{i:"🤸",n:"Calf stretch + ankle circles",d:"3×30 sec each",note:"Daily. Non-negotiable."},
-]},
-{l:"D2",t:"conditioning",title:"Movement + boxing basics",exs:[
-{i:"🥊",n:"Shadowboxing — stance + jab",d:"4×2 min",note:"Stance, guard, weight shift, jab only."},
-{i:"🚶",n:"Walk",d:"25 min flat surface",note:"No hills. Pain-free pace."},
-{i:"🐻",n:"Bear crawl",d:"3×25 sec",note:"Knees 1 inch off floor."},
-{i:"🤼",n:"Shrimp drill (light)",d:"2×5 reps",note:"Intro to ground movement. Start early."},
-{i:"🔄",n:"Hip circles",d:"2×10 each direction"},
-]},
-{l:"D3",t:"strength",title:"Upper body + pull",exs:[
-{i:"💪",n:"Wall → incline push-ups",d:"4×12",note:"Start wall if very deconditioned."},
-{i:"↗",n:"Door frame rows",d:"4×10",note:"Lean back on frame, pull chest to it."},
-{i:"⚡",n:"Bird dog",d:"3×8 each side",note:"Slow controlled. Better core than plank-only."},
+{l:"D1",loc:"gym",t:"strength",title:"Lower body gym",exs:[
+{i:"🏋",n:"Goblet squat",d:"3×10 @ light DB",note:"Master form first. Chest up, knees track toes."},
+{i:"🔥",n:"Romanian deadlift",d:"3×10 @ light",note:"Hinge at hips. Feels in hamstrings, not back."},
+{i:"🦵",n:"Walking lunge",d:"3×10 each leg",note:"Unweighted or very light. Short stride."},
 {i:"⚡",n:"Plank",d:"3×30 sec"},
-{i:"🥊",n:"Shadowboxing — jab + cross",d:"3×1 min",note:"Add the cross this phase."},
+{i:"🤸",n:"Calf stretch",d:"3×30 sec each leg",note:"Finish every gym session with this."},
 ]},
-{l:"D4",t:"grappling",title:"Ground movement + core",exs:[
-{i:"🤼",n:"Shrimp drill",d:"3×8 reps",note:"Most important ground skill — prioritise."},
-{i:"🐢",n:"Technical stand-up",d:"3×5 each side",note:"Ground to base. Grappling fundamental."},
-{i:"🐻",n:"Bear crawl forward + backward",d:"3×20 sec",note:"Calf-free conditioning."},
-{i:"⚡",n:"Hollow hold",d:"3×15 sec",note:"Build to 25 sec by Week 6."},
+{l:"D2",loc:"home",t:"striking",title:"Bag kicks + shadowboxing",exs:[
+{i:"🥊",n:"Shadowboxing — stance + jab",d:"4×2 min",note:"Guard, weight shift, snap back."},
+{i:"🦵",n:"Bag kicks — teep (front push kick)",d:"3×20 (10 each leg)",note:"Perfect beginner kick. Low calf stress."},
+{i:"🦵",n:"Bag kicks — low leg kick",d:"3×15 (8 each leg)",note:"Kick with shin, not foot. Hips rotate through."},
+{i:"🥊",n:"Bag — light jab-cross taps",d:"3×1 min @ 40% power",note:"Timing and rhythm only. Don't hit hard."},
+{i:"🚶",n:"Cooldown walk",d:"15 min"},
+]},
+{l:"D3",loc:"home",t:"grappling",title:"Ground movement + core",exs:[
+{i:"🤼",n:"Shrimp drill",d:"3×8 reps",note:"Hip escape. Most important ground skill."},
+{i:"🐢",n:"Technical stand-up",d:"3×5 each side",note:"Ground to base."},
+{i:"🐻",n:"Bear crawl (forward + backward)",d:"3×20 sec"},
+{i:"⚡",n:"Side plank",d:"3×20 sec each side"},
+{i:"⚡",n:"Dead bug",d:"3×8 each side"},
 {i:"🔄",n:"Hip flexor stretch",d:"3×30 sec each side"},
 ]},
-{l:"D5",t:"recovery",title:"Active recovery",exs:[
-{i:"🚶",n:"Walk",d:"30 min"},
-{i:"🧘",n:"Full body stretch",d:"20 min",note:"Focus on hips, calves, thoracic spine."},
-{i:"🤸",n:"Calf stretch + ankle mobility",d:"3×30 sec each leg"},
+{l:"D4",loc:"gym",t:"strength",title:"Upper body gym",exs:[
+{i:"💪",n:"Bench press (barbell or DB)",d:"3×10 light",note:"Controlled. No arch, feet planted."},
+{i:"↗",n:"Barbell row or seated cable row",d:"3×10",note:"Critical — balances pushing work."},
+{i:"⬆",n:"Overhead press (DB or barbell)",d:"3×8",note:"Carefully — shoulders fragile after a year off."},
+{i:"💪",n:"Face pulls",d:"3×12",note:"Rotator cuff health. Essential for striking."},
+{i:"⚡",n:"Hanging knee raise",d:"3×8"},
 ]},
-{l:"D6",t:"circuit",title:"Full body circuit",exs:[
-{i:"🔁",n:"3 rounds — 30 sec work / 20 sec rest",d:"",note:""},
-{i:"🏋",n:"Squats",d:"30 sec"},
+{l:"D5",loc:"home",t:"striking",title:"Bag kicks + conditioning",exs:[
+{i:"🥊",n:"Shadowboxing with footwork",d:"4×2 min",note:"Move while boxing. Step-drag."},
+{i:"🦵",n:"Bag — teep + low kick combo",d:"4×15 reps",note:"Alternating legs. Build kick endurance."},
+{i:"🦵",n:"Bag — knee strikes",d:"3×10 each leg",note:"Clinch position. Drive hips forward."},
+{i:"🐻",n:"Bear crawl",d:"3×25 sec"},
+{i:"🚶",n:"Walk",d:"20 min"},
+]},
+{l:"D6",loc:"home",t:"circuit",title:"Home MMA circuit",exs:[
+{i:"🔁",n:"4 rounds — 30 sec work / 20 sec rest",d:""},
+{i:"🦵",n:"Bag teep kicks",d:"30 sec alternating"},
+{i:"🏋",n:"Bodyweight squats",d:"30 sec"},
 {i:"💪",n:"Incline push-ups",d:"30 sec"},
 {i:"🐻",n:"Bear crawl",d:"20 sec"},
-{i:"⚡",n:"Plank",d:"30 sec"},
 {i:"🥊",n:"Shadowboxing",d:"1 min"},
-{i:"🤼",n:"Shrimp drill",d:"20 sec"},
 ]},
-{l:"D7",t:"rest",title:"Rest",exs:[
-{i:"😴",n:"Full rest",d:"",note:"Calf stretch + neck isometrics only."},
+{l:"D7",loc:"home",t:"rest",title:"Rest",exs:[
+{i:"😴",n:"Full rest",d:"",note:"Neck isometrics + calf stretch only."},
 ]},
-],tips:["Phase 1 extended to 6 weeks because of 1-year inactivity — tendons need this long to adapt.","Neck work every single training day from Day 1 — non-negotiable.","Do not jog in Phase 1. Walking only for cardio.","Weekly check: calf pain getting better, same, or worse? If worse after Week 2, stop and get it assessed.","Aim to hit 3×30 sec calf stretches daily, including rest days."]},
+],tips:["Phase 1 is 6 weeks — don't skip ahead even if gym lifts feel light. Tendons need this.","Bag use focus: kicks + knees at full power, punches at 40% for timing only. Protects your wrists.","Always wrap hands + wear 16oz gloves — even for light bag work.","Gym sessions stay light. You'll be tempted to push. Don't.","Kicks on the bag don't stress calves the way running does — you can kick from Week 1."]},
 
-{label:"Phase 2",weeks:"Weeks 7–10",aim:"Introduce striking combos, gentle calf reloading, expand grappling movement",
+{label:"Phase 2",weeks:"Weeks 7–10",aim:"Add load to gym lifts, introduce punch combos on bag, gentle calf reloading",
+split:"3 gym days (D1, D3, D5) + 3 home days. Real strength progression.",
 days:[
-{l:"D1",t:"striking",title:"Striking fundamentals",exs:[
-{i:"🥊",n:"Jab-cross practice",d:"5×3 min rounds",note:"Focus on rotation and guard. Don't lunge forward."},
-{i:"💪",n:"Push-ups (standard)",d:"4×12",note:"Progress from incline only if pain-free."},
-{i:"↗",n:"Door frame rows",d:"4×12"},
-{i:"⚡",n:"Hollow body hold",d:"3×25 sec"},
-{i:"🦵",n:"Tibialis raise",d:"3×15",note:"Point-toe-to-shin. Balances calf reload."},
+{l:"D1",loc:"gym",t:"strength",title:"Lower body + push",exs:[
+{i:"🏋",n:"Back squat",d:"4×6–8",note:"Add weight if form is solid from Phase 1."},
+{i:"💪",n:"Bench press",d:"4×6–8"},
+{i:"🦵",n:"Bulgarian split squat",d:"3×8 each leg",note:"Rear foot on bench. Fighter-essential."},
+{i:"⬆",n:"DB overhead press",d:"3×8"},
+{i:"⚡",n:"Hanging leg raise",d:"3×10"},
 ]},
-{l:"D2",t:"conditioning",title:"Conditioning + footwork",exs:[
-{i:"🚶",n:"Brisk walk or jog intervals",d:"30 min",note:"Only jog if passed calf test (see recovery box above)."},
-{i:"👟",n:"Stance footwork",d:"10 min",note:"Step-drag. Light bouncing only."},
-{i:"🐻",n:"Bear crawl",d:"4×25 sec"},
-{i:"🥊",n:"Shadowboxing with movement",d:"3×2 min"},
+{l:"D2",loc:"home",t:"striking",title:"Bag combos + footwork",exs:[
+{i:"🥊",n:"Shadowboxing — jab-cross-hook",d:"5×3 min rounds",note:"Focus on rotation."},
+{i:"🥊",n:"Bag — jab-cross combo (moderate)",d:"4×2 min @ 60%",note:"Now you can hit harder. Still wrap + glove."},
+{i:"🦵",n:"Bag — kick combos: jab-cross-low kick",d:"4×10 combos each side",note:"Linking hands to legs."},
+{i:"👟",n:"Footwork drills",d:"10 min"},
 ]},
-{l:"D3",t:"grappling",title:"Grappling movement",exs:[
-{i:"🤼",n:"Shrimp drill",d:"4×10 reps",note:"Hip escape along floor."},
-{i:"↘",n:"Sprawl drill",d:"3×8 reps",note:"Drop hips fast. Takedown defence instinct."},
-{i:"🐢",n:"Turtle + base recovery",d:"3×5",note:"Getting back to base if taken down."},
-{i:"🐻",n:"Bear crawl — directional",d:"3×20 sec",note:"Add backward crawl."},
-{i:"⚡",n:"Side plank",d:"3×25 sec each side"},
+{l:"D3",loc:"gym",t:"strength",title:"Deadlift + pull",exs:[
+{i:"🔥",n:"Conventional deadlift",d:"4×5",note:"Progress from RDL. Form is everything."},
+{i:"↗",n:"Barbell row",d:"4×8"},
+{i:"💪",n:"Pull-ups or lat pulldown",d:"3×8",note:"Lat pulldown if pull-ups too hard."},
+{i:"💪",n:"Face pulls",d:"3×15"},
+{i:"💪",n:"Farmer's carry",d:"3×30m heavy",note:"Grip + core + conditioning in one."},
 ]},
-{l:"D4",t:"striking",title:"Striking + conditioning",exs:[
-{i:"🥊",n:"Shadowboxing (add hooks)",d:"5×2 min rounds",note:"Jab-cross-hook. Snap back after each shot."},
-{i:"⏱",n:"MMA pair drill — shadow",d:"3 sets: 20 jab-cross + 10 sprawls",note:"Links striking and defence."},
-{i:"🚶",n:"Cooldown walk/jog",d:"15 min"},
+{l:"D4",loc:"home",t:"grappling",title:"Grappling + conditioning",exs:[
+{i:"🤼",n:"Shrimp drill",d:"4×10 reps"},
+{i:"↘",n:"Sprawl drill",d:"3×10 reps",note:"Drop hips fast."},
+{i:"🐢",n:"Turtle + base recovery",d:"3×5"},
+{i:"🦵",n:"Bag — knee strikes with clinch position",d:"3×15 each leg"},
+{i:"🏃",n:"Jog/walk intervals",d:"8×(1 min jog + 1 min walk)",note:"Only if passed calf test."},
 ]},
-{l:"D5",t:"strength",title:"Strength + core",exs:[
-{i:"🦵",n:"Reverse lunges",d:"4×10 each leg",note:"Step back — less calf stress than forward lunge."},
-{i:"💪",n:"Push-ups (wide + standard)",d:"4×10"},
-{i:"↗",n:"Door frame rows",d:"4×12"},
-{i:"🔥",n:"Single-leg glute bridge",d:"3×10 each side"},
-{i:"⚡",n:"Core circuit: hollow hold 25s + bird dog ×10 + side plank 25s",d:"3 rounds"},
+{l:"D5",loc:"gym",t:"strength",title:"Full body + core",exs:[
+{i:"🏋",n:"Front squat",d:"3×6",note:"Core-demanding variation."},
+{i:"💪",n:"Incline bench press",d:"3×8"},
+{i:"↗",n:"Single-arm DB row",d:"3×10 each"},
+{i:"⚡",n:"Ab wheel or hollow body rock",d:"3×10"},
+{i:"🦵",n:"Standing calf raises",d:"3×15",note:"Reintroducing direct calf work. Slow descent."},
 ]},
-{l:"D6",t:"circuit",title:"MMA circuit",exs:[
-{i:"🔁",n:"4 rounds — 40 sec work / 20 sec rest",d:""},
-{i:"🥊",n:"Jab-cross-hook",d:"40 sec"},
-{i:"🏋",n:"Squats",d:"40 sec"},
+{l:"D6",loc:"home",t:"circuit",title:"MMA circuit",exs:[
+{i:"🔁",n:"5 rounds — 40 sec work / 20 sec rest",d:""},
+{i:"🥊",n:"Bag — jab-cross-hook",d:"40 sec"},
+{i:"🦵",n:"Bag — low kick combos",d:"40 sec alternating"},
 {i:"↘",n:"Sprawl",d:"40 sec"},
 {i:"💪",n:"Push-ups",d:"40 sec"},
 {i:"🐻",n:"Bear crawl",d:"20 sec"},
 ]},
-{l:"D7",t:"rest",title:"Rest",exs:[
-{i:"😴",n:"Full rest",d:"",note:"Neck work + calf stretch only."},
+{l:"D7",loc:"home",t:"rest",title:"Rest",exs:[
+{i:"😴",n:"Full rest",d:""},
 ]},
-],tips:["Calf test gate: only introduce jogging after passing walk-then-calf-raise test.","Phase 2 is shorter (4 weeks) because this is a transition phase to real MMA work.","If any calf pain returns, drop back to walking for a full week before retrying."]},
+],tips:["Three gym days now — this is where real strength gains kick in.","Bag punches can go up to 60% power now that wrists are conditioned — keep wrapping.","If calf is still tight, keep cardio to walking. No shame — kicks on bag give you plenty of lower-body work.","Track your lifts. Add 2.5kg when all reps complete with clean form."]},
 
-{label:"Phase 3",weeks:"Weeks 11–24",aim:"Combine all skills, build MMA conditioning, controlled sparring (if you find a partner)",
+{label:"Phase 3",weeks:"Weeks 11–24",aim:"Full-contact bag work, heavy gym lifting, combine everything into real MMA conditioning",
+split:"3 gym days (D1, D3, D5) + 3 skill days. Performance phase.",
 days:[
-{l:"D1",t:"striking",title:"Striking — combos",exs:[
-{i:"🥊",n:"Jab-Cross-Hook + body shots",d:"5×3 min rounds",note:"Add body jab and body hook in Month 4."},
-{i:"💪",n:"Push-ups (explosive or archer)",d:"4×10",note:"Progress to harder variation."},
-{i:"⚡",n:"Core circuit: hollow 30s + V-ups ×15 + bicycle ×20",d:"3 rounds"},
-{i:"🦵",n:"Calf raises (standing)",d:"3×15",note:"Finally reintroduced. Slow 3 sec down."},
+{l:"D1",loc:"gym",t:"strength",title:"Squat + press",exs:[
+{i:"🏋",n:"Back squat",d:"5×5 heavy",note:"Strength phase. Full effort."},
+{i:"💪",n:"Bench press",d:"5×5"},
+{i:"⬆",n:"Overhead press",d:"4×6"},
+{i:"🦵",n:"Bulgarian split squat",d:"3×10 weighted"},
+{i:"⚡",n:"Weighted plank or ab wheel",d:"3×12"},
 ]},
-{l:"D2",t:"conditioning",title:"Conditioning",exs:[
-{i:"🏃",n:"Jog/walk intervals",d:"8×(1 min jog + 1 min walk)",note:"Progress to 2 min jog / 1 min walk by Month 4."},
-{i:"👟",n:"Footwork + angles",d:"15 min",note:"Pivot off jab, step outside lead leg."},
-{i:"🥊",n:"Shadowboxing",d:"4×3 min"},
+{l:"D2",loc:"home",t:"striking",title:"Bag striking — full combos",exs:[
+{i:"🥊",n:"Bag — combos at 75% power",d:"6×3 min rounds",note:"Full MMA combos now. Jab-cross-hook-low kick."},
+{i:"🦵",n:"Bag — power kicks",d:"4×10 each leg",note:"Full effort. Shin conditioning."},
+{i:"🦵",n:"Bag — knee + elbow combos",d:"4×10 combos",note:"Close-range weapons."},
+{i:"👟",n:"Footwork + angles",d:"15 min"},
+{i:"🥊",n:"Defensive slips + rolls on bag",d:"3×2 min"},
 ]},
-{l:"D3",t:"grappling",title:"Grappling",exs:[
-{i:"↘",n:"Sprawl drills",d:"4×10",note:"React to a clap — builds instinct."},
-{i:"🤼",n:"Level change + shot mechanics",d:"3×5 each side",note:"Shadow drill only — no partner = no real takedowns."},
-{i:"🔄",n:"Shrimp + base recovery flow",d:"4×10m"},
-{i:"🐻",n:"Bear crawl — all directions",d:"4×25 sec"},
-{i:"💪",n:"Grip hold (towel hang on door)",d:"3×20 sec",note:"Grappling-specific grip work."},
+{l:"D3",loc:"gym",t:"strength",title:"Deadlift + pull",exs:[
+{i:"🔥",n:"Deadlift",d:"5×3 heavy",note:"Strongest lift for MMA."},
+{i:"↗",n:"Weighted pull-ups",d:"4×5"},
+{i:"↗",n:"Pendlay row",d:"4×6"},
+{i:"💪",n:"Dips",d:"3×8"},
+{i:"💪",n:"Farmer's carry",d:"3×30m heavy"},
 ]},
-{l:"D4",t:"striking",title:"Striking + movement",exs:[
-{i:"👟",n:"Footwork patterns",d:"15 min",note:"Angles are what separate beginner from intermediate striking."},
-{i:"🥊",n:"Combo shadowboxing",d:"5×3 min",note:"Move off centre line after every combo."},
-{i:"🔄",n:"Defensive slips + rolls",d:"3×2 min",note:"Head movement drill."},
+{l:"D4",loc:"home",t:"grappling",title:"Grappling + conditioning",exs:[
+{i:"↘",n:"Sprawl drills",d:"4×10 reactive",note:"React to a signal."},
+{i:"🤼",n:"Level change + shot shadow drill",d:"3×5 each side",note:"No partner means no real takedowns."},
+{i:"🔄",n:"Shrimp + base flow",d:"4×10m"},
+{i:"🏃",n:"Jog intervals",d:"6×(2 min jog + 1 min walk)",note:"Progressed from Phase 2."},
+{i:"💪",n:"Towel hang (grip)",d:"3×20 sec"},
 ]},
-{l:"D5",t:"strength",title:"Strength + core",exs:[
-{i:"🦵",n:"Bulgarian split squats",d:"4×10 each leg",note:"Rear foot elevated on chair. Unilateral strength."},
-{i:"💪",n:"Push-up variations",d:"4×10",note:"Diamond, archer, or decline."},
-{i:"↗",n:"Door frame rows (feet forward)",d:"4×12",note:"Harder angle as you progress."},
-{i:"⚡",n:"Core: dragon flag progression + side plank 30s",d:"3 rounds"},
-{i:"🤼",n:"Shrimp drill",d:"2×10m",note:"Keep it in rotation."},
+{l:"D5",loc:"gym",t:"strength",title:"Power + accessories",exs:[
+{i:"🏋",n:"Front squat",d:"4×5"},
+{i:"🔥",n:"Trap bar deadlift or RDL",d:"4×6",note:"Posterior chain work."},
+{i:"💪",n:"Push press",d:"4×5",note:"Explosive — builds punch power."},
+{i:"↗",n:"DB row",d:"3×10 each"},
+{i:"⚡",n:"Core circuit: hollow + V-ups + side plank",d:"3 rounds"},
 ]},
-{l:"D6",t:"circuit",title:"MMA mixed day",exs:[
+{l:"D6",loc:"home",t:"circuit",title:"MMA mixed day",exs:[
 {i:"🔁",n:"5 rounds — 2 min work / 1 min rest",d:""},
-{i:"🥊",n:"Shadowboxing",d:"1 min"},
-{i:"↘",n:"Sprawl",d:"10 reps"},
-{i:"🏋",n:"Squats",d:"15 reps"},
+{i:"🥊",n:"Bag combos (strikes + kicks)",d:"1 min"},
+{i:"↘",n:"Sprawl",d:"15 reps"},
+{i:"🏋",n:"Bodyweight squats",d:"15 reps"},
 {i:"💪",n:"Push-ups",d:"10 reps"},
 {i:"🐻",n:"Bear crawl",d:"20 sec"},
 {i:"🤼",n:"Shrimp drill",d:"5m"},
 ]},
-{l:"D7",t:"rest",title:"Rest",exs:[
-{i:"😴",n:"Full rest",d:"",note:"Or light walk if you feel restless."},
+{l:"D7",loc:"home",t:"rest",title:"Rest",exs:[
+{i:"😴",n:"Full rest",d:""},
 ]},
-],tips:["Find a training partner or gym by Month 4 — grappling progress without a partner hits a ceiling fast.","Controlled sparring: 50–60% power max, always with headgear and mouthguard.","Jump rope can be added by Month 5 if calf has been pain-free for 4+ weeks.","Film yourself once every 2 weeks — you'll spot guard drops and footwork errors you can't feel."]},
+],tips:["Find an MMA gym or partner by Month 4 if possible — grappling hits a ceiling alone.","Bag power can now go 75%+ — wrist and shoulder conditioning should be solid.","Gym progress should be real and measurable. Add weight weekly on main lifts.","Jump rope can be added Month 5 if calf has been pain-free for 4+ weeks.","Controlled sparring (if you find a partner): 50–60% power, always headgear + mouthguard."]},
 ];
 
 function sw(pi){
@@ -295,10 +348,12 @@ function render(pi){
   el.innerHTML=`<div class="phase-bar">
     <div><div class="phase-name">${ph.label} · ${ph.weeks}</div><div class="phase-aim">${ph.aim}</div></div>
     <span class="phase-badge">${ph.weeks}</span></div>
+  ${ph.split?`<div class="split-info"><strong>Split:</strong> ${ph.split}</div>`:''}
   <div class="daygrid">${ph.days.map((d,i)=>`<div class="dc${pi===0&&i===0?' active':''}" onclick="sd(${pi},${i})" id="dc${pi}-${i}">
     <div class="dc-lbl">${d.l}</div>
     <div class="dc-name">${d.title}</div>
     <span class="dc-tag t-${d.t}">${d.t}</span>
+    <div class="dc-loc">${d.loc==='gym'?'🏋':'🏠'}</div>
   </div>`).join('')}</div>
   <div id="det${pi}"></div>`;
   sd(pi,0);
@@ -309,7 +364,7 @@ function sd(pi,di){
   const ph=D[pi];
   document.querySelectorAll(`#p${pi} .dc`).forEach((c,i)=>c.classList.toggle('active',i===di));
   document.getElementById('det'+pi).innerHTML=`<div class="detail">
-    <div class="det-title">${d.l} — ${d.title}</div>
+    <div class="det-title">${d.l} — ${d.title} <span class="det-loc loc-${d.loc}">${d.loc==='gym'?'🏋 Gym':'🏠 Home'}</span></div>
     <div class="det-sub"><span class="dc-tag t-${d.t}">${d.t}</span></div>
     <div class="warmup-block"><strong>Start with:</strong> 5-min warm-up (joint circles → leg/arm swings → light shadowboxing) + neck isometrics (4 directions × 10 sec) + calf stretch (30 sec each leg).</div>
     <div class="exlist">${d.exs.map(e=>`<div class="ex">
